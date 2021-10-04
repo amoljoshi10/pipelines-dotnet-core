@@ -14,6 +14,8 @@ jobs:
       inputs:
         command: 'publish'
         publishWebProjects: true
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: true
 
     # deploy to Azure Web App staging
     - task: AzureWebApp@1
@@ -38,7 +40,7 @@ jobs:
           azureSubscription: 'capgeminiaz400Devops26(6)(87fce128-be33-4930-bafe-f9510c10e637)'
           appType: 'webApp'
           appName: 'WebAppDotNetCoreDemo21'
-          package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+          package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
           deploymentMethod: 'auto'
 
       
