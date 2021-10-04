@@ -15,7 +15,6 @@ jobs:
           azureSubscription: 'capgeminiaz400Devops26(6)(87fce128-be33-4930-bafe-f9510c10e637)'
           appType: 'webApp'
           appName: 'WebAppDotNetCoreDemo21Staging'
-          package: '$(System.DefaultWorkingDirectory)/**/*.zip'
           deploymentMethod: 'auto'
       
 
@@ -37,7 +36,6 @@ jobs:
           azureSubscription: 'capgeminiaz400Devops26(6)(87fce128-be33-4930-bafe-f9510c10e637)'
           appType: 'webApp'
           appName: 'WebAppDotNetCoreDemo21'
-          package: '$(System.DefaultWorkingDirectory)/**/*.zip'
           deploymentMethod: 'auto'
 
       
