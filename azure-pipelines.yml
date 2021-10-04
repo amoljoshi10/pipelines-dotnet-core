@@ -1,21 +1,27 @@
+variables:
+  buildConfiguration: 'Release'
+
 jobs:
 
 - job: buildandtest
   pool:
     vmImage: 'ubuntu-latest'
-  steps:
-  # publish an artifact called drop
-  - task: PublishBuildArtifacts@1
-    inputs:
-      artifactName: drop
 
-  # deploy to Azure Web App staging
-  - task: AzureWebApp@1
-    inputs:
-          azureSubscription: 'capgeminiaz400Devops26(6)(87fce128-be33-4930-bafe-f9510c10e637)'
-          appType: 'webApp'
-          appName: 'WebAppDotNetCoreDemo21Staging'
-          deploymentMethod: 'auto'
+  steps:
+    - script: dotnet build --configuration $(buildConfiguration)
+      displayName: 'dotnet build $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+
+    # deploy to Azure Web App staging
+    - task: AzureWebApp@1
+      inputs:
+            azureSubscription: 'capgeminiaz400Devops26(6)(87fce128-be33-4930-bafe-f9510c10e637)'
+            appType: 'webApp'
+            appName: 'WebAppDotNetCoreDemo21Staging'
+            deploymentMethod: 'auto'
       
 
 - job: deploy
