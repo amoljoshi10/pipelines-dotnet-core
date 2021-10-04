@@ -31,10 +31,6 @@ jobs:
   condition: succeeded()
   steps:
 
-  # download the artifact drop from the previous job
-  - task: DownloadBuildArtifacts@0
-    inputs:
-      artifactName: drop
 
   # deploy to Azure Web App production
   - task: AzureWebApp@1
@@ -42,6 +38,7 @@ jobs:
           azureSubscription: 'capgeminiaz400Devops26(6)(87fce128-be33-4930-bafe-f9510c10e637)'
           appType: 'webApp'
           appName: 'WebAppDotNetCoreDemo21'
+          package: '$(System.DefaultWorkingDirectory)/**/*.zip'
           deploymentMethod: 'auto'
 
       
