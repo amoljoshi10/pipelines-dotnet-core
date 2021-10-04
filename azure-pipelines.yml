@@ -13,13 +13,15 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: DotNetCoreCLI@2
-  displayName: Build
+- task: UseDotNet@2
   inputs:
-    command: build
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)' # Update this to match your need
-    # do this after other tasks such as building
+    version: '5.0.x'
+    includePreviewVersions: true # Required for preview versions
+
+- task: UseDotNet@2
+  inputs:
+    version: '3.0.x'
+    packageType: runtime
 # do this after other tasks such as building
 - task: DotNetCoreCLI@2
   displayName: testandcollectcoverage
