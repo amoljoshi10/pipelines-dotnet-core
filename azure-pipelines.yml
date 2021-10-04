@@ -20,16 +20,10 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)' # Update this to match your need
     # do this after other tasks such as building
+# do this after other tasks such as building
 - task: DotNetCoreCLI@2
-  displayName: Test
+  displayName: testandcollectcoverage
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-    # do this after your tests have run
-- script: dotnet test testproject --logger trx
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
